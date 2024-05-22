@@ -28,6 +28,8 @@ export default function () {
             }}
           >
             <li><a href="/">Home</a></li>
+            <li><a href="/admin/check">Check</a></li>
+            <li><a href="/admin/menu">Menu</a></li>
             <li><a href="/admin/manage">Manage</a></li>
           </ul>
           {auth ? (
@@ -39,8 +41,8 @@ export default function () {
               Setting
             </button>
           ) : (
-            <Link to="/admin/check" className="btn_gs">
-              Admin
+            <Link to="/" className="btn_gs">
+              Logout
             </Link>
           )}
         </div>

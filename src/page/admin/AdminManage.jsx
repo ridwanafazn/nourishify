@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Nav from "../../component/Nav3";
+import Nav from "../../component/Nav2";
 
 function AdminManage() {
   const navigate = useNavigate();
