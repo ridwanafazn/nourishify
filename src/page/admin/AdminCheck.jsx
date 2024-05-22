@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Nav2 from "../../component/Nav2";
+import "../../style/admincheck.css"
 
 function AdminCheck() {
   const [nisn, setNisn] = useState("");
@@ -41,15 +43,20 @@ function AdminCheck() {
 
   return (
     <div>
-      <h1>Check Kuota Siswa</h1>
-      {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
-      <input
-        type="text"
-        placeholder="NISN Siswa"
-        value={nisn}
-        onChange={(e) => setNisn(e.target.value)}
-      />
-      <button onClick={handleCheck}>Check</button>
+      <Nav2 />
+      <div className="admin-check-container">
+        <h1>Check Kuota Siswa</h1>
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
+        <input
+          type="text"
+          placeholder="NISN Siswa"
+          value={nisn}
+          onChange={(e) => setNisn(e.target.value)}
+        />
+        <button className="btn-check" onClick={handleCheck}>
+          Check
+        </button>
+      </div>
     </div>
   );
 }

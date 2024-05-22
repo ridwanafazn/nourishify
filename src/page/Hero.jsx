@@ -40,12 +40,13 @@ function Hero() {
               Get Started
             </Link>
 
-            <button style={{ fontFamily: "DM Sans, sans-serif" }}>About</button>
+            {/* <button style={{ fontFamily: "DM Sans, sans-serif" }}>About</button> */}
           </div>
         </header>
 
         <main>
           <div
+            id="about"
             style={{
               display: "flex",
               padding: "5rem",
@@ -87,7 +88,7 @@ function Hero() {
               </p>
             </div>
           </div>
-          <div>
+          <div id="our-team">
             <h1
               style={{
                 fontFamily: "Playfair Display, serif",

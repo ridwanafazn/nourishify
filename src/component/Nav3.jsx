@@ -28,8 +28,7 @@ export default function () {
             }}
           >
             <li><a href="/">Home</a></li>
-            <li><a href="/#about">About</a></li>
-            <li><a href="/#our-team">Our Team</a></li>
+            <li><a href="/admin/check">Check</a></li>
           </ul>
           {auth ? (
             <button

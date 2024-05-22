@@ -1,8 +1,9 @@
 import { useState } from "react";
+import Nav from "../component/NavUser";
+import "../style/userprofile.css";
 
 function UserProfile() {
-  const [isEditing, setIsEditing] = useState(false);
-  const [profile, setProfile] = useState({
+  const initialProfile = {
     nisn: "123456",
     nama: "John Doe",
     jenisKelamin: "Laki-laki",
@@ -11,7 +12,11 @@ function UserProfile() {
     rombel: "A",
     kelas: "12",
     password: "********",
-  });
+  };
+
+  const [isEditing, setIsEditing] = useState(false);
+  const [profile, setProfile] = useState(initialProfile);
+  const [originalProfile, setOriginalProfile] = useState(initialProfile);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,6 +27,7 @@ function UserProfile() {
   };
 
   const handleEdit = () => {
+    setOriginalProfile(profile); // Simpan data asli sebelum mulai mengedit
     setIsEditing(true);
   };
 
@@ -31,17 +37,23 @@ function UserProfile() {
   };
 
   const handleCancel = () => {
-    // Reset data ke nilai semula jika diperlukan
+    setProfile(originalProfile); // Kembalikan data profil ke data asli
     setIsEditing(false);
   };
 
   return (
     <div>
+      <header>
+      <Nav />
+      </header>
+      <div className="user-profile">
+      
+      
       <h1>Profile</h1>
       
       <section>
         <h2>Data Siswa</h2>
-        <div>
+        <div className="profile-details">
           <p>NISN: {isEditing ? <input name="nisn" value={profile.nisn} onChange={handleChange} /> : profile.nisn}</p>
           <p>Nama: {isEditing ? <input name="nama" value={profile.nama} onChange={handleChange} /> : profile.nama}</p>
           <p>Jenis Kelamin: {isEditing ? <input name="jenisKelamin" value={profile.jenisKelamin} onChange={handleChange} /> : profile.jenisKelamin}</p>
@@ -51,7 +63,7 @@ function UserProfile() {
           <p>Kelas: {isEditing ? <input name="kelas" value={profile.kelas} onChange={handleChange} /> : profile.kelas}</p>
           <p>Password: {isEditing ? <input type="password" name="password" value={profile.password} onChange={handleChange} /> : profile.password}</p>
         </div>
-        <div>
+        <div className="profile-actions">
           {isEditing ? (
             <>
               <button onClick={handleSave}>Save</button>
@@ -90,6 +102,8 @@ function UserProfile() {
         </table>
       </section>
     </div>
+    </div>
+    
   );
 }
 

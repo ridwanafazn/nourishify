@@ -32,11 +32,6 @@ export default function Footer() {
             gap: "1rem",
           }}
         >
-          <li>
-            <Link to="/admin/check" style={{ color: "white", textDecoration: "none" }}>
-              Admin
-            </Link>
-          </li>
           <li>Phone</li>
           <li>Email</li>
           <li>Location</li>

@@ -1,6 +1,9 @@
+import Nav from "../../component/Nav3";
+
 function AdminManage() {
   return (
     <div>
+      <Nav/>
       <h1>Manage Menu</h1>
       <table>
         <thead>

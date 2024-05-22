@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "../../component/Footer";
 import MenuCard from "../../component/MenuCard";
-import Nav from "../../component/Nav";
+import Nav2 from "../../component/Nav2";
 
 function AdminMenu() {
   const [selected, setSelected] = useState(0);
@@ -16,7 +16,7 @@ function AdminMenu() {
   return (
     <>
       <header>
-        <Nav />
+        <Nav2 />
       </header>
       <main style={{ textAlign: "center" }}>
         <h1

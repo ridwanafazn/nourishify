@@ -16,8 +16,8 @@ function Signin() {
             <Link to="/profile" className="btn_gs">
               Login
             </Link>
-            <p>Or</p>
-            <button>Sign In With Google</button>
+            {/* <p>Or</p>
+            <button>Sign In With Google</button> */}
           </div>
         </main>
       </div>
