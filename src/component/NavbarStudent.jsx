@@ -1,12 +1,22 @@
-import { Link, useLoaderData, useLocation } from "react-router-dom";
+// src/component/NavbarStudent.jsx
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Logo from "./Logo";
 import { useState } from "react";
 import "../style/Nav.css";
 
-export default function () {
+const NavbarStudent = () => {
   const path = useLocation();
-  const auth = path.pathname == "/dashboard" ? true : false;
+  const navigate = useNavigate();
+  const auth = path.pathname === "/dashboard" || path.pathname === "/profile";
   const [menu, setMenu] = useState(false);
+
+  const handleLogout = () => {
+    // Hapus token dari local storage
+    localStorage.removeItem('token');
+    // Redirect ke halaman login
+    navigate('/login');
+  };
+
   return (
     <>
       <nav
@@ -18,18 +28,31 @@ export default function () {
           padding: "0.5rem 2rem",
         }}
       >
-        <Logo />  
+        <Logo />
         <div style={{ display: "flex", alignItems: "center", gap: "2rem" }}>
-        <ul
+          <ul
             style={{
               display: "flex",
               listStyle: "none",
               gap: "1rem",
             }}
           >
-            <li><a href="/">Home</a></li>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/profile">Profile</Link></li>
           </ul>
-          
+          {auth ? (
+            <button
+              onClick={() => {
+                setMenu(!menu);
+              }}
+            >
+              Setting
+            </button>
+          ) : (
+            <Link to="/admin/login" className="btn_gs">
+              Admin Login
+            </Link>
+          )}
         </div>
       </nav>
       {auth && (
@@ -46,18 +69,16 @@ export default function () {
             backgroundColor: "silver",
           }}
         >
-          <Link
-            className="btn_editprofile"
-            to="/editprofile"
+          <button
             style={{ border: 0, borderRadius: "4px", cursor: "pointer" }}
+            onClick={handleLogout}
           >
-            Profile
-          </Link>
-          <button style={{ border: 0, borderRadius: "4px", cursor: "pointer" }}>
             Logout
           </button>
         </div>
       )}
     </>
   );
-}
+};
+
+export default NavbarStudent;

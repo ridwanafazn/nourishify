@@ -3,9 +3,10 @@ import Signin from "./page/Signin";
 import Hero from "./page/Hero";
 import UserProfile from "./page/UserProfile";
 import AdminSignin from "./page/admin/AdminSignin";
-import AdminCheck from "./page/admin/AdminCheck";
+import AdminStudentOrder from "./page/admin/AdminStudentOrder";
 import AdminMenu from "./page/admin/AdminMenu";
 import AdminManage from "./page/admin/AdminManage";
+import StudentDashboard from "./page/StudentDashboard";
 import "./App.css";
 
 const router = createBrowserRouter([
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
     element: <Signin />,
   },
   {
+    path: "/dashboard",
+    element: <StudentDashboard />,
+  },
+  {
     path: "/profile",
     element: <UserProfile />,
   },
@@ -26,8 +31,8 @@ const router = createBrowserRouter([
     element: <AdminSignin />,
   },
   {
-    path: "/admin/check",
-    element: <AdminCheck />,
+    path: "/admin/dashboard",
+    element: <AdminStudentOrder />,
   },
   {
     path: "/admin/menu",

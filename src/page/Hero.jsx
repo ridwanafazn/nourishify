@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 import Footer from "../component/Footer";
-import Nav from "../component/Nav";
+import Navbar from "../component/NavbarHome";
 import TeamCard from "../component/TeamCard";
 
 function Hero() {
   return (
     <>
       <div className="hero">
-        <Nav />
+        <Navbar />
         <header
           style={{
             background: `url("/home.png")`,

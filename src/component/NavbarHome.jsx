@@ -31,19 +31,7 @@ export default function () {
             <li><a href="/#about">About</a></li>
             <li><a href="/#our-team">Our Team</a></li>
           </ul>
-          {auth ? (
-            <button
-              onClick={() => {
-                setMenu(!menu);
-              }}
-            >
-              Setting
-            </button>
-          ) : (
-            <Link to="/admin/check" className="btn_gs">
-              Admin
-            </Link>
-          )}
+      
         </div>
       </nav>
       {auth && (

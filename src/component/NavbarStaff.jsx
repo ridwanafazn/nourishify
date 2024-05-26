@@ -1,12 +1,22 @@
-import { Link, useLoaderData, useLocation } from "react-router-dom";
+// src/component/NavbarStaff.jsx
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Logo from "./Logo";
 import { useState } from "react";
 import "../style/Nav.css";
 
-export default function () {
+const NavbarStaff = () => {
   const path = useLocation();
-  const auth = path.pathname == "/dashboard" ? true : false;
+  const navigate = useNavigate();
+  const auth = path.pathname === "/admin/check" || path.pathname === "/admin/manage";
   const [menu, setMenu] = useState(false);
+
+  const handleLogout = () => {
+    // Hapus token dari local storage
+    localStorage.removeItem('token');
+    // Redirect ke halaman login
+    navigate('/admin/login');
+  };
+
   return (
     <>
       <nav
@@ -18,33 +28,20 @@ export default function () {
           padding: "0.5rem 2rem",
         }}
       >
-        <Logo />  
+        <Logo />
         <div style={{ display: "flex", alignItems: "center", gap: "2rem" }}>
-        <ul
+          <ul
             style={{
               display: "flex",
               listStyle: "none",
               gap: "1rem",
             }}
           >
-            <li><a href="/">Home</a></li>
-            <li><a href="/admin/check">Check</a></li>
-            <li><a href="/admin/menu">Menu</a></li>
-            <li><a href="/admin/manage">Manage</a></li>
+            <li><Link to="/">Home</Link></li>            
+            <li><Link to="/admin/dashboard">Dashboard</Link></li>
+            <li><Link to="/admin/manage">Manage</Link></li>
           </ul>
-          {auth ? (
-            <button
-              onClick={() => {
-                setMenu(!menu);
-              }}
-            >
-              Setting
-            </button>
-          ) : (
-            <Link to="/" className="btn_gs">
-              Logout
-            </Link>
-          )}
+          
         </div>
       </nav>
       {auth && (
@@ -61,18 +58,16 @@ export default function () {
             backgroundColor: "silver",
           }}
         >
-          <Link
-            className="btn_editprofile"
-            to="/editprofile"
+          <button
             style={{ border: 0, borderRadius: "4px", cursor: "pointer" }}
+            onClick={handleLogout}
           >
-            Profile
-          </Link>
-          <button style={{ border: 0, borderRadius: "4px", cursor: "pointer" }}>
             Logout
           </button>
         </div>
       )}
     </>
   );
-}
+};
+
+export default NavbarStaff;

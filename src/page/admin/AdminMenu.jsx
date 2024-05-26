@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "../../component/Footer";
 import MenuCard from "../../component/MenuCard";
-import Nav2 from "../../component/Nav2";
+import Nav2 from "../../component/NavbarStaff";
 
 function AdminMenu() {
   const [selected, setSelected] = useState(0);

@@ -7,14 +7,27 @@ function AdminSignin() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    // Tambahkan logika autentikasi di sini
-    if (username === "admin" && password === "password") {
-      // Contoh autentikasi sederhana
-      localStorage.setItem("adminLoggedIn", true);
-      navigate("/admin/check");
-    } else {
-      alert("Username atau password salah");
+  const handleLogin = async () => {
+    try {
+      const response = await fetch('https://nourishify-api.vercel.app/api/staff/staff-login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        localStorage.setItem('adminToken', data.token);
+        navigate('/admin/dashboard');
+      } else {
+        alert(data.msg || 'Username atau password salah');
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Terjadi kesalahan. Silakan coba lagi.');
     }
   };
 
@@ -39,8 +52,13 @@ function AdminSignin() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <button onClick={handleLogin}>Login</button>
-           
+            <button className="btn_gs" onClick={handleLogin}>
+              Login
+            </button>
+            <p>
+              Bukan staff kantin? Login sebagai siswa di halaman berikut{" "}
+              <Link to="/login"> ini</Link>
+            </p>
           </div>
         </main>
       </div>
