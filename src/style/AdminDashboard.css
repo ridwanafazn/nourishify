@@ -1,0 +1,54 @@
+.dashboard {
+  padding: 20px;
+}
+
+.menu-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.menu-actions {
+  margin-top: 20px;
+}
+
+.menu-actions input {
+  padding: 10px;
+  margin-right: 10px;
+}
+
+.menu-actions button {
+  padding: 10px;
+  background-color: #ad343e;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.menu-actions button:hover {
+  background-color: #81172a;
+}
+
+.order-history {
+  margin-top: 40px;
+}
+
+.order-history table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.order-history th,
+.order-history td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.order-history th {
+  background-color: #f4f4f4;
+}
+
+.order-history tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
