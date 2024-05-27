@@ -148,10 +148,10 @@ const UserProfile = () => {
     <>
       <NavbarStudent />
       <div className="profile-container">
-        <h1>My Profile</h1>
+        <h1>Data Siswa</h1>
         <div className="profile-details">
           <label>
-            NISN:
+            NISN
             <input
               type="text"
               name="nisn"
@@ -160,7 +160,7 @@ const UserProfile = () => {
             />
           </label>
           <label>
-            Name:
+            Nama
             <input
               type="text"
               name="name"
@@ -170,7 +170,7 @@ const UserProfile = () => {
             />
           </label>
           <label>
-            Gender:
+            Jenis Kelamin
             <select
               name="gender"
               value={profile.gender}
@@ -182,7 +182,7 @@ const UserProfile = () => {
             </select>
           </label>
           <label>
-            Birth Place:
+            Kota Kelahiran
             <input
               type="text"
               name="birthPlace"
@@ -192,7 +192,7 @@ const UserProfile = () => {
             />
           </label>
           <label>
-            Birth Date:
+            Tanggal Lahir
             <input
               type="date"
               name="birthDate"
@@ -202,7 +202,7 @@ const UserProfile = () => {
             />
           </label>
           <label>
-            School:
+            Sekolah
             <input
               type="text"
               name="school"
@@ -212,7 +212,7 @@ const UserProfile = () => {
             />
           </label>
           <label>
-            Major:
+            Jurusan
             <select
               name="major"
               value={profile.major}
@@ -224,7 +224,7 @@ const UserProfile = () => {
             </select>
           </label>
           <label>
-            Class:
+            Kelas
             <select
               name="class"
               value={profile.class}
@@ -248,7 +248,7 @@ const UserProfile = () => {
           )}
         </div>
         <div className="password-change">
-          <h2>Change Password</h2>
+          <h2>Ubah Password</h2>
           {errorMessage && <p className="error-message">{errorMessage}</p>}
           <label>
             Current Password:
