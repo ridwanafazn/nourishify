@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import NavbarStudent from '../component/NavbarStudent';
-import '../style/UserProfile.css';
+import '../style/ProfileStudent.css';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const UserProfile = () => {
