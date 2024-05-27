@@ -1,4 +1,3 @@
-// src/component/NavbarStaff.jsx
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Logo from "./Logo";
 import { useState } from "react";
@@ -7,14 +6,14 @@ import "../style/Nav.css";
 const NavbarStaff = () => {
   const path = useLocation();
   const navigate = useNavigate();
-  const auth = path.pathname === "/admin/check" || path.pathname === "/admin/manage";
+  const auth = path.pathname === "/admin/check" || path.pathname === "/admin/manage" || path.pathname === "/admin/dashboard";
   const [menu, setMenu] = useState(false);
 
   const handleLogout = () => {
-    // Hapus token dari local storage
-    localStorage.removeItem('token');
-    // Redirect ke halaman login
-    navigate('/admin/login');
+    // Hapus token admin dari local storage
+    localStorage.removeItem('adminToken');
+    // Redirect ke halaman home
+    navigate('/');
   };
 
   return (
@@ -37,35 +36,20 @@ const NavbarStaff = () => {
               gap: "1rem",
             }}
           >
-            <li><Link to="/">Home</Link></li>            
+            <li><Link to="/">Home</Link></li>
             <li><Link to="/admin/dashboard">Dashboard</Link></li>
             <li><Link to="/admin/manage">Manage</Link></li>
           </ul>
-          
+          {auth && (
+            <button
+              style={{ fontFamily: "DM Sans, sans-serif", cursor: "pointer" }}
+              onClick={handleLogout}
+            >
+              Logout
+            </button>
+          )}
         </div>
       </nav>
-      {auth && (
-        <div
-          style={{
-            position: "absolute",
-            display: menu ? "flex" : "none",
-            gap: "0.25rem",
-            flexDirection: "column",
-            top: "64px",
-            right: "32px",
-            borderRadius: "4px",
-            padding: "5px",
-            backgroundColor: "silver",
-          }}
-        >
-          <button
-            style={{ border: 0, borderRadius: "4px", cursor: "pointer" }}
-            onClick={handleLogout}
-          >
-            Logout
-          </button>
-        </div>
-      )}
     </>
   );
 };

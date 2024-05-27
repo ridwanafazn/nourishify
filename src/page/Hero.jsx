@@ -1,9 +1,32 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Footer from "../component/Footer";
 import Navbar from "../component/NavbarHome";
 import TeamCard from "../component/TeamCard";
 
 function Hero() {
+  const navigate = useNavigate();
+
+  const handleGetStarted = () => {
+    const studentToken = localStorage.getItem('token');
+    const staffToken = localStorage.getItem('adminToken');
+
+    if (!studentToken && !staffToken) {
+      // Jika belum login, arahkan ke halaman login
+      navigate('/login');
+    } else if (studentToken && staffToken) {
+      // Jika keduanya login, logout dari keduanya
+      localStorage.removeItem('token');
+      localStorage.removeItem('adminToken');
+      navigate('/login');
+    } else if (studentToken) {
+      // Jika login sebagai student, arahkan ke dashboard student
+      navigate('/dashboard');
+    } else if (staffToken) {
+      // Jika login sebagai staff, arahkan ke dashboard admin
+      navigate('/admin/dashboard');
+    }
+  };
+
   return (
     <>
       <div className="hero">
@@ -36,10 +59,9 @@ function Hero() {
             yang ramah.
           </p>
           <div style={{ display: "flex", gap: "1rem" }}>
-            <Link to="/login" className="btn_gs">
+            <button className="btn_gs" onClick={handleGetStarted}>
               Get Started
-            </Link>
-
+            </button>
             {/* <button style={{ fontFamily: "DM Sans, sans-serif" }}>About</button> */}
           </div>
         </header>
@@ -132,12 +154,12 @@ function Hero() {
             <TeamCard
               imageUrl={"pc5.PNG"}
               nama={"Teuku Muhammad Saif"}
-              jabatan={"Back-end Depelover"}
+              jabatan={"Back-end Developer"}
             />
             <TeamCard
               imageUrl={"foto.jpg"}
               nama={"Wildan Sophal Jamil"}
-              jabatan={"Front-end Depelover"}
+              jabatan={"Front-end Developer"}
             />
           </div>
         </main>

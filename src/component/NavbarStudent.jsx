@@ -14,7 +14,7 @@ const NavbarStudent = () => {
     // Hapus token dari local storage
     localStorage.removeItem('token');
     // Redirect ke halaman login
-    navigate('/login');
+    navigate('/');
   };
 
   return (

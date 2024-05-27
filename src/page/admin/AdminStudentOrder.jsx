@@ -89,6 +89,19 @@ const AdminStudentOrder = () => {
             menu._id === selectedMenu ? { ...menu, stock: menu.stock - 1 } : menu
           )
         );
+
+        // Update the menu stock in backend
+        const selectedMenuObj = menus.find(menu => menu._id === selectedMenu);
+        if (selectedMenuObj) {
+          await fetch('https://nourishify-api.vercel.app/api/staff/manage-menu', {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({ menuId: selectedMenu, isActive: selectedMenuObj.isActive, stock: selectedMenuObj.stock - 1 }),
+          });
+        }
       } else {
         const errorData = await response.json();
         setError(errorData.msg || 'Terjadi kesalahan. Silakan coba lagi.');
@@ -105,7 +118,7 @@ const AdminStudentOrder = () => {
     <>
       <Navbar />
       <div className="dashboard">
-        <h1>Admin Student Order</h1>
+        <h1>Staff Kantin Dashboard</h1>
         <div className="menu-list">
           {menus.length > 0 ? (
             menus.map((menu) => (
