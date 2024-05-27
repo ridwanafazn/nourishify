@@ -35,10 +35,6 @@ const router = createBrowserRouter([
     element: <AdminStudentOrder />,
   },
   {
-    path: "/admin/menu",
-    element: <AdminMenu />,
-  },
-  {
     path: "/admin/manage",
     element: <AdminManage />,
   },
