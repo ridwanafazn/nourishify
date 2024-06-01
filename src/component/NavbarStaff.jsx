@@ -1,21 +1,12 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLoaderData, useLocation } from "react-router-dom";
 import Logo from "./Logo";
 import { useState } from "react";
 import "../style/Nav.css";
 
-const NavbarStaff = () => {
+export default function () {
   const path = useLocation();
-  const navigate = useNavigate();
-  const auth = path.pathname === "/admin/check" || path.pathname === "/admin/manage" || path.pathname === "/admin/dashboard";
+  const auth = path.pathname == "/dashboard" ? true : false;
   const [menu, setMenu] = useState(false);
-
-  const handleLogout = () => {
-    // Hapus token admin dari local storage
-    localStorage.removeItem('adminToken');
-    // Redirect ke halaman home
-    navigate('/');
-  };
-
   return (
     <>
       <nav
@@ -36,22 +27,56 @@ const NavbarStaff = () => {
               gap: "1rem",
             }}
           >
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/admin/dashboard">Dashboard</Link></li>
-            <li><Link to="/admin/manage">Manage</Link></li>
+            <li>
+              <a style={{ color: "black", textDecoration: "none" }} href="/">
+                Home
+              </a>
+            </li>
+            <li>
+              <a
+                style={{ color: "black", textDecoration: "none" }}
+                href="/#about"
+              >
+                About
+              </a>
+            </li>
+            <li>
+              <a
+                style={{ color: "black", textDecoration: "none" }}
+                href="/#our-team"
+              >
+                Our Team
+              </a>
+            </li>
           </ul>
-          {auth && (
-            <button
-              style={{ fontFamily: "DM Sans, sans-serif", cursor: "pointer" }}
-              onClick={handleLogout}
-            >
-              Logout
-            </button>
-          )}
         </div>
       </nav>
+      {auth && (
+        <div
+          style={{
+            position: "absolute",
+            display: menu ? "flex" : "none",
+            gap: "0.25rem",
+            flexDirection: "column",
+            top: "64px",
+            right: "32px",
+            borderRadius: "4px",
+            padding: "5px",
+            backgroundColor: "silver",
+          }}
+        >
+          <Link
+            className="btn_editprofile"
+            to="/editprofile"
+            style={{ border: 0, borderRadius: "4px", cursor: "pointer" }}
+          >
+            Profile
+          </Link>
+          <button style={{ border: 0, borderRadius: "4px", cursor: "pointer" }}>
+            Logout
+          </button>
+        </div>
+      )}
     </>
   );
-};
-
-export default NavbarStaff;
+}
