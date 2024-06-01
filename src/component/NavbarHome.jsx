@@ -18,20 +18,37 @@ export default function () {
           padding: "0.5rem 2rem",
         }}
       >
-        <Logo />  
+        <Logo />
         <div style={{ display: "flex", alignItems: "center", gap: "2rem" }}>
-        <ul
+          <ul
             style={{
               display: "flex",
               listStyle: "none",
               gap: "1rem",
             }}
           >
-            <li><a href="/">Home</a></li>
-            <li><a href="/#about">About</a></li>
-            <li><a href="/#our-team">Our Team</a></li>
+            <li>
+              <a style={{ color: "black", textDecoration: "none" }} href="/">
+                Home
+              </a>
+            </li>
+            <li>
+              <a
+                style={{ color: "black", textDecoration: "none" }}
+                href="/#about"
+              >
+                About
+              </a>
+            </li>
+            <li>
+              <a
+                style={{ color: "black", textDecoration: "none" }}
+                href="/#our-team"
+              >
+                Our Team
+              </a>
+            </li>
           </ul>
-      
         </div>
       </nav>
       {auth && (

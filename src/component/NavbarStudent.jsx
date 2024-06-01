@@ -12,9 +12,9 @@ const NavbarStudent = () => {
 
   const handleLogout = () => {
     // Hapus token dari local storage
-    localStorage.removeItem('token');
+    localStorage.removeItem("token");
     // Redirect ke halaman login
-    navigate('/');
+    navigate("/");
   };
 
   return (
@@ -37,8 +37,19 @@ const NavbarStudent = () => {
               gap: "1rem",
             }}
           >
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/profile">Profile</Link></li>
+            <li style={{ textDecoration: "none" }}>
+              <a style={{ color: "black", textDecoration: "none" }} href="/">
+                Home
+              </a>
+            </li>
+            <li>
+              <a
+                style={{ color: "black", textDecoration: "none" }}
+                href="/profile"
+              >
+                Profile
+              </a>
+            </li>
           </ul>
           {auth ? (
             <button

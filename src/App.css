@@ -169,6 +169,7 @@ button {
   background-color: #ad343e;
   color: white;
   width: 100%;
+  font-weight: bold;
 }
 
 .card:hover {

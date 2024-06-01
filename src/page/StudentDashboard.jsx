@@ -1,46 +1,57 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import NavbarStudent from '../component/NavbarStudent';
-import MenuCard from '../component/MenuCard';
-import '../style/StudentDashboard.css';
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import NavbarStudent from "../component/NavbarStudent";
+import MenuCard from "../component/MenuCard";
+import "../style/StudentDashboard.css";
 
 const StudentDashboard = () => {
   const [menus, setMenus] = useState([]);
   const [claimedStatus, setClaimedStatus] = useState(false);
   const [orderHistory, setOrderHistory] = useState([]);
   const [selectedMenu, setSelectedMenu] = useState(null);
-  const [userName, setUserName] = useState('');
+  const [userName, setUserName] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       if (!token) {
-        navigate('/login');
+        navigate("/login");
       }
 
       try {
-        const [profileResponse, menusResponse, statusResponse, historyResponse] = await Promise.all([
-          fetch('https://nourishify-api.vercel.app/api/students/profile', {
+        const [
+          profileResponse,
+          menusResponse,
+          statusResponse,
+          historyResponse,
+        ] = await Promise.all([
+          fetch("https://nourishify-api.vercel.app/api/students/profile", {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           }),
-          fetch('https://nourishify-api.vercel.app/api/students/menus', {
+          fetch("https://nourishify-api.vercel.app/api/students/menus", {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           }),
-          fetch('https://nourishify-api.vercel.app/api/students/check-claim-status', {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }),
-          fetch('https://nourishify-api.vercel.app/api/students/order-history', {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }),
+          fetch(
+            "https://nourishify-api.vercel.app/api/students/check-claim-status",
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          ),
+          fetch(
+            "https://nourishify-api.vercel.app/api/students/order-history",
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          ),
         ]);
 
         const profileData = await profileResponse.json();
@@ -53,7 +64,7 @@ const StudentDashboard = () => {
         setOrderHistory(historyData);
         setUserName(profileData.name);
       } catch (err) {
-        console.error('Failed to fetch data:', err);
+        console.error("Failed to fetch data:", err);
       }
     };
 
@@ -61,16 +72,19 @@ const StudentDashboard = () => {
   }, [navigate]);
 
   const handleClaimMenu = async (menuId) => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     try {
-      const response = await fetch('https://nourishify-api.vercel.app/api/students/claim-menu', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ menuId }),
-      });
+      const response = await fetch(
+        "https://nourishify-api.vercel.app/api/students/claim-menu",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ menuId }),
+        }
+      );
 
       if (response.ok) {
         setClaimedStatus(true);
@@ -80,10 +94,10 @@ const StudentDashboard = () => {
         setMenus(updatedMenus);
       } else {
         const errorData = await response.json();
-        console.error('Failed to claim menu:', errorData);
+        console.error("Failed to claim menu:", errorData);
       }
     } catch (err) {
-      console.error('Failed to claim menu:', err);
+      console.error("Failed to claim menu:", err);
     }
   };
 
@@ -92,7 +106,10 @@ const StudentDashboard = () => {
       <NavbarStudent />
       <div className="dashboard">
         <h1>Welcome to Student Dashboard</h1>
-        <p>Hi {userName.split(' ').slice(0, 2).join(' ')}</p>
+        <p>
+          Hi {userName.split(" ").slice(0, 2).join(" ")} silahkan pilih menu
+          yang anda inginkan
+        </p>
         <div className="menu-list">
           {menus.length > 0 ? (
             menus.map((menu) => (
@@ -114,32 +131,39 @@ const StudentDashboard = () => {
           <div className="menu-actions">
             <button
               style={{
-                fontFamily: 'DM Sans, sans-serif',
-                margin: '1rem',
-                backgroundColor: '#ad343e',
-                color: 'white',
+                fontFamily: "DM Sans, sans-serif",
+                margin: "1rem",
+                backgroundColor: "#ad343e",
+                color: "white",
+                padding: "0.5rem 2rem",
               }}
               onClick={() => handleClaimMenu(selectedMenu)}
             >
               Klaim
-            </button>{' '}
+            </button>{" "}
             <button
-              style={{ fontFamily: 'DM Sans, sans-serif', margin: '1rem' }}
+              style={{
+                fontFamily: "DM Sans, sans-serif",
+                margin: "1rem",
+                padding: "0.5rem 2rem",
+              }}
               onClick={() => setSelectedMenu(null)}
             >
               Batal
             </button>
           </div>
         )}
-        
+
         <div className="claim-status">
           {claimedStatus ? (
             <p>
-              Hi {userName.split(' ').slice(0, 2).join(' ')}. Kamu <b>telah</b> melakukan klaim makan bergizi hari ini
+              Hi {userName.split(" ").slice(0, 2).join(" ")}. Kamu <b>telah</b>{" "}
+              melakukan klaim makan bergizi hari ini
             </p>
           ) : (
             <p>
-              Hi {userName.split(' ').slice(0, 2).join(' ')}. Kamu <b>belum</b> klaim makan bergizi hari ini
+              Hi {userName.split(" ").slice(0, 2).join(" ")}. Kamu <b>belum</b>{" "}
+              klaim makan bergizi hari ini
             </p>
           )}
         </div>
@@ -162,16 +186,16 @@ const StudentDashboard = () => {
                     <td>{index + 1}</td>
                     <td>{order.menu.name}</td>
                     <td>
-                      {orderDate.toLocaleTimeString('id-ID', {
-                        hour: '2-digit',
-                        minute: '2-digit',
+                      {orderDate.toLocaleTimeString("id-ID", {
+                        hour: "2-digit",
+                        minute: "2-digit",
                       })}
                     </td>
                     <td>
-                      {orderDate.toLocaleDateString('id-ID', {
-                        day: '2-digit',
-                        month: '2-digit',
-                        year: 'numeric',
+                      {orderDate.toLocaleDateString("id-ID", {
+                        day: "2-digit",
+                        month: "2-digit",
+                        year: "numeric",
                       })}
                     </td>
                   </tr>

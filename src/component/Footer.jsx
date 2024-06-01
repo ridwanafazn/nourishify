@@ -32,9 +32,9 @@ export default function Footer() {
             gap: "1rem",
           }}
         >
-          <li>Phone</li>
-          <li>Email</li>
-          <li>Location</li>
+          <li>Phone : (+62) 821 5463 3276</li>
+          <li>Email : Nourishify@gmail.com</li>
+          <li>Location : Bandung, Indonesia</li>
         </ul>
       </div>
     </footer>
