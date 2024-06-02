@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import NavbarStudent from "../component/NavbarStudent";
 import MenuCard from "../component/MenuCard";
 import "../style/StudentDashboard.css";
@@ -14,7 +14,7 @@ const StudentDashboard = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem("studentToken");
       if (!token) {
         navigate("/login");
       }
@@ -72,7 +72,7 @@ const StudentDashboard = () => {
   }, [navigate]);
 
   const handleClaimMenu = async (menuId) => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("studentToken");
     try {
       const response = await fetch(
         "https://nourishify-api.vercel.app/api/students/claim-menu",
@@ -140,7 +140,7 @@ const StudentDashboard = () => {
               onClick={() => handleClaimMenu(selectedMenu)}
             >
               Klaim
-            </button>{" "}
+            </button>
             <button
               style={{
                 fontFamily: "DM Sans, sans-serif",
