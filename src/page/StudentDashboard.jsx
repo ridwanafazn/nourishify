@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import NavbarStudent from "../component/NavbarStudent";
 import MenuCard from "../component/MenuCard";
 import "../style/StudentDashboard.css";
 
 const StudentDashboard = () => {
   const [menus, setMenus] = useState([]);
-  const [claimedStatus, setClaimedStatus] = useState(false);
+  const [lastClaimDate, setLastClaimDate] = useState(null);
   const [orderHistory, setOrderHistory] = useState([]);
   const [selectedMenu, setSelectedMenu] = useState(null);
   const [userName, setUserName] = useState("");
@@ -14,7 +14,7 @@ const StudentDashboard = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const token = localStorage.getItem("studentToken");
+      const token = localStorage.getItem("token");
       if (!token) {
         navigate("/login");
       }
@@ -60,7 +60,7 @@ const StudentDashboard = () => {
         const historyData = await historyResponse.json();
 
         setMenus(menusData);
-        setClaimedStatus(statusData.claimedToday);
+        setLastClaimDate(statusData.lastClaimDate);
         setOrderHistory(historyData);
         setUserName(profileData.name);
       } catch (err) {
@@ -72,7 +72,7 @@ const StudentDashboard = () => {
   }, [navigate]);
 
   const handleClaimMenu = async (menuId) => {
-    const token = localStorage.getItem("studentToken");
+    const token = localStorage.getItem("token");
     try {
       const response = await fetch(
         "https://nourishify-api.vercel.app/api/students/claim-menu",
@@ -87,11 +87,13 @@ const StudentDashboard = () => {
       );
 
       if (response.ok) {
-        setClaimedStatus(true);
+        const data = await response.json();
         const updatedMenus = menus.map((menu) =>
           menu._id === menuId ? { ...menu, stock: menu.stock - 1 } : menu
         );
+
         setMenus(updatedMenus);
+        setLastClaimDate(data.lastClaimDate);
       } else {
         const errorData = await response.json();
         console.error("Failed to claim menu:", errorData);
@@ -99,6 +101,18 @@ const StudentDashboard = () => {
     } catch (err) {
       console.error("Failed to claim menu:", err);
     }
+  };
+
+  const canClaimToday = () => {
+    if (!lastClaimDate) return true;
+
+    const lastClaim = new Date(lastClaimDate);
+    const today = new Date();
+    return (
+      lastClaim.getDate() !== today.getDate() ||
+      lastClaim.getMonth() !== today.getMonth() ||
+      lastClaim.getFullYear() !== today.getFullYear()
+    );
   };
 
   return (
@@ -127,7 +141,7 @@ const StudentDashboard = () => {
             <p>Loading menus...</p>
           )}
         </div>
-        {!claimedStatus && selectedMenu && (
+        {canClaimToday() && selectedMenu && (
           <div className="menu-actions">
             <button
               style={{
@@ -140,7 +154,7 @@ const StudentDashboard = () => {
               onClick={() => handleClaimMenu(selectedMenu)}
             >
               Klaim
-            </button>
+            </button>{" "}
             <button
               style={{
                 fontFamily: "DM Sans, sans-serif",
@@ -155,15 +169,15 @@ const StudentDashboard = () => {
         )}
 
         <div className="claim-status">
-          {claimedStatus ? (
-            <p>
-              Hi {userName.split(" ").slice(0, 2).join(" ")}. Kamu <b>telah</b>{" "}
-              melakukan klaim makan bergizi hari ini
-            </p>
-          ) : (
+          {canClaimToday() ? (
             <p>
               Hi {userName.split(" ").slice(0, 2).join(" ")}. Kamu <b>belum</b>{" "}
               klaim makan bergizi hari ini
+            </p>
+          ) : (
+            <p>
+              Hi {userName.split(" ").slice(0, 2).join(" ")}. Kamu <b>telah</b>{" "}
+              melakukan klaim makan bergizi hari ini
             </p>
           )}
         </div>
